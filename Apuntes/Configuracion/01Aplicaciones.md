@@ -14,3 +14,8 @@ https://github.com/NeasakaSolutions/Apuntes_Generales/blob/main/Python/Instalaci
 ```bash
 https://youtu.be/zDEUHPUl4iY?si=amk12uQUaIJkT2l7
 ```
+
+- Insomnia:
+```bash
+https://insomnia.rest/download
+```
