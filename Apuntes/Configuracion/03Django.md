@@ -7,8 +7,14 @@ pip install Django
 
 ## Crear proyecto en django:
 
-- Ejecutar en terminal:
+- Crear proyecto:
 ```bash
-
+django-admin startproject backend
 ```
+
+- Crear aplicacion:
+```bash
+django-admin startapp home
+```
+
 
