@@ -24,5 +24,26 @@ urlpatterns = [
 
 - En la app home ir al archivo views.py y agregar:
 ```python
+# Importaciones:
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def home_inicio(request):
+    return HttpResponse("<h1>Ijole desde home</h1>")
 ```
 
+- Generar un .gitignore en la raiz con lo siguiente:
+```bash
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+.env
+
+
+entorno
+```
