@@ -17,4 +17,22 @@ django-admin startproject backend
 django-admin startapp home
 ```
 
+## Descargar Django Restframework:
 
+- Ejecutar en terminal con el entorno encendido:
+```bash
+pip install djangorestframework
+```
+
+- Ir a settings.py y en INSTALLED_APPS agregar rest_framework:
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+]
+```
