@@ -43,3 +43,50 @@ class Class_Ejemplo(APIView):
     def get(self, request):
         return HttpResponse("Ijole desde la app de ejemplo")
 ```
+
+- En insomnia generar un nuevo proyecto y agregar la ruta:
+```bash
+http://127.0.0.1:8000/api/v1/ejemplo
+```
+
+- Agregar los metodos faltantes y probarlos en insomnia:
+```python
+def post(self, request):
+    return HttpResponse("Metodo POST")
+    
+def put(self, request):
+    return HttpResponse("Metodo PUT")
+
+def delete(self, request):
+    return HttpResponse("Metodo DELETE")
+```
+
+- En urls.py de la app ejemplo, modificar las importaciones y generar la nueva ruta:
+```python
+from ejemplo.views import (
+    Class_Ejemplo,
+    Class_Ejemplo_Parametros
+)
+
+urlpatterns = [
+    # Enrutando las clases que se encuentran en views.py
+    path('ejemplo', Class_Ejemplo.as_view()),
+    path('ejemplo/<int:id>', Class_Ejemplo_Parametros.as_view()), # Nueva ruta
+]
+```
+
+- En views.py agregar los siguientes metodos con sus respectivas id:
+```python
+# Clase con parametros
+class Class_Ejemplo_Parametros(APIView):
+
+    def get(self, request, id): # Se agregan los nuevos parametros que en este caso es el id
+        return HttpResponse(f"Metodo GET con el parametro de id: {id}")
+    
+    def put(self, request, id):
+                return HttpResponse(f"Metodo PUT con el parametro de id: {id}")
+
+    def delete(self, request, id):
+                return HttpResponse(f"Metodo DELETE con el parametro de id: {id}")
+```
+
