@@ -90,3 +90,107 @@ class Class_Ejemplo_Parametros(APIView):
                 return HttpResponse(f"Metodo DELETE con el parametro de id: {id}")
 ```
 
+- Probar en insomnia con los metodos que se utilizaron en las consultas con parametros:
+```bash
+http://127.0.0.1:8000/api/v1/ejemplo/3
+```
+
+- En views.py agregar la siguiente importacion y modificar el metodo GET:
+```python
+from django.http import (
+        HttpResponse,
+        JsonResponse # Importacion que se agrega
+)
+
+def get(self, request):
+    return JsonResponse({
+            "estado": "ok",
+            "mensaje": "Metodo GET"
+    })
+```
+
+- En isnomnia, en el metodo post agregar un body de tipo json y agregar:
+```json
+{
+    "correo": "correo@correo.com",
+    "password": "Ijole123"
+}
+```
+
+- En views.py agregar la importacion:
+```python
+from http import HTTPStatus
+```
+
+- Modificar el metodo post:
+```python
+def post(self, request):
+            # Validaciones:
+            if request.data.get("correo") == None or request.data.get("password") == None:
+
+                    return JsonResponse({
+                            "estado": "error",
+                            "mensaje": "Campos vacios"
+                    }, status = HTTPStatus.BAD_REQUEST)
+
+            # Retorno:
+            return JsonResponse({
+                    "estado": "ok",
+                    "mensaje": f"Metodo POST | correo = {request.data.get('correo')}"
+            }, status = HTTPStatus.CREATED)
+```
+
+- En el metodo get agregar el estado:
+```python
+def get(self, request):
+        return JsonResponse({
+                "estado": "ok",
+                "mensaje": "Metodo GET"
+        }, status = HTTPStatus.OK)
+```
+
+- En views.py agregar la importacion:
+```python
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+```
+
+- Modificar el metodo POST:
+```python
+def post(self, request):
+            # Parametros:
+            correo = request.data.get("correo")
+            password = request.data.get("password")
+            
+            # Validaciones:
+            if not isinstance(correo, str) or not isinstance(password, str):
+                return JsonResponse({
+                        "estado": "error",
+                        "mensaje": "Datos invalidos"
+                }, status = HTTPStatus.BAD_REQUEST)
+
+            # Eliminar espacios en blanco:
+            correo = correo.strip()
+
+            if not correo or not password:
+                return JsonResponse({
+                        "estado": "error",
+                        "mensaje": "Faltan campos obligatorios"
+                }, status = HTTPStatus.BAD_REQUEST)
+
+            # Validar formato del correo:
+            try:
+                validate_email(correo)
+            except ValidationError:
+                return JsonResponse({
+                       "estado": "error",
+                       "mensaje": "Correo invalido"
+                }, status = HTTPStatus.BAD_REQUEST)
+
+            # Respuesta positiva
+            return JsonResponse({
+                    "estado": "ok",
+                    "mensaje": f"Metodo POST | correo = {request.data.get('correo')}"
+            }, status = HTTPStatus.CREATED)
+```
+
